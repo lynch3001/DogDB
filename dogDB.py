@@ -55,7 +55,7 @@ class dogs(wx.Frame):
                 cunt=wx.ListBox(panel, -1,(200,200),(-1,-1),mylist, wx.LB_SINGLE)
                 cunt.SetSelection(2)
                 
-                custom=wx.StaticText(panel, -1,"Your dog is a: "+sexanswer+"\nYour dogs name is:"+nameanswer+"\nYour details are: \n"+row["dogId"]+"\n"+row["dogname"],(-1,-1), (260, -1))
+                custom=wx.StaticText(panel, -1,"Your dog is a: "+sexanswer+"\nYour dogs name is:"+nameanswer+"\nYour details are: \n"+"\n"+row["dogname"]+"\n"+row["dogowner"],(-1,-1), (260, -1))
 ##                custom.SetForegroundColour('pink')
 ##                custom.SetBackgroundColour('green')
 ##                sirslider=wx.Slider(panel, -1, 1,1,25, pos=(50,50), size=(450,-1), style=wx.SL_AUTOTICKS | wx.SL_LABELS)
