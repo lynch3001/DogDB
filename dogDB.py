@@ -15,9 +15,9 @@ class dogs(wx.Frame):
                 menubar=wx.MenuBar()
                 firstmenu=wx.Menu()
                 secondmenu=wx.Menu()
-                firstmenu.Append(wx.NewId(),"New Entry","Adds New Entry for Dogs")
-                fitem = firstmenu.Append(wx.ID_EXIT, 'Quit', 'Quit application')
-                secondmenu.Append(wx.NewId(),"Edit Entry...","makes Nessasary Dog Entry")
+                newitem = firstmenu.Append(wx.NewId(),"New Entry","Adds New Entry for Dogs")
+                exititem = firstmenu.Append(wx.ID_EXIT, 'Quit', 'Quit application')
+                edititem = secondmenu.Append(wx.NewId(),"Edit Entry...","makes Nessasary Dog Entry")
                 menubar.Append(firstmenu,"File")
                 menubar.Append(secondmenu,"Edit")
 		
@@ -37,15 +37,11 @@ class dogs(wx.Frame):
 
         	
                 self.SetMenuBar(menubar)
-                self.Bind(wx.EVT_MENU, self.closebutton, fitem)
+                self.Bind(wx.EVT_MENU, self.closebutton, exititem)
+                self.Bind(wx.EVT_MENU, self.newobject, newitem)
 
-                sexchoice=wx.SingleChoiceDialog(None, 'Male or Bitch?', 'Sex?',['Male','bitch', 'Neutered'])
-                if sexchoice.ShowModal()==wx.ID_OK:
-                        sexanswer=sexchoice.GetStringSelection()
-                        
-                namebox=wx.TextEntryDialog(None, 'Dogs name:','Dogs Details',"First name")
-                if namebox.ShowModal()==wx.ID_OK:
-                        nameanswer=namebox.GetValue()
+		sexanswer = "Default"
+		nameanswer = "Default"
 
                 wx.CheckBox(panel, -1, "pretty doggy", (80,80),(160,-1))
                 wx.CheckBox(panel, -1, "ugly doggy", (80,100),(160,-1))
@@ -75,6 +71,16 @@ class dogs(wx.Frame):
 
         def closewindow(self, event):
                 self.Destroy()
+
+	def newobject(self, event):
+		sexchoice=wx.SingleChoiceDialog(None, 'Male or Bitch?', 'Sex?',['Male','bitch', 'Neutered'])
+                if sexchoice.ShowModal()==wx.ID_OK:
+                        sexanswer=sexchoice.GetStringSelection()
+                        
+                namebox=wx.TextEntryDialog(None, 'Dogs name:','Dogs Details',"First name")
+                if namebox.ShowModal()==wx.ID_OK:
+
+                        nameanswer=namebox.GetValue()
 
 if __name__=='__main__':
         app=wx.PySimpleApp()
