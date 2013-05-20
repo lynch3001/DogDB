@@ -40,7 +40,7 @@ class dogs(wx.Frame):
                 self.Bind(wx.EVT_MENU, self.closebutton, exititem)
                 self.Bind(wx.EVT_MENU, self.newobject, newitem)
 
-		sexanswer = "Default"
+		sexanswer = "default"
 		nameanswer = "Default"
 
                 wx.CheckBox(panel, -1, "pretty doggy", (80,80),(160,-1))
@@ -75,12 +75,42 @@ class dogs(wx.Frame):
 	def newobject(self, event):
 		sexchoice=wx.SingleChoiceDialog(None, 'Male or Bitch?', 'Sex?',['Male','bitch', 'Neutered'])
                 if sexchoice.ShowModal()==wx.ID_OK:
-                        sexanswer=sexchoice.GetStringSelection()
+                        sexvar=sexchoice.GetStringSelection()
                         
                 namebox=wx.TextEntryDialog(None, 'Dogs name:','Dogs Details',"First name")
                 if namebox.ShowModal()==wx.ID_OK:
 
-                        nameanswer=namebox.GetValue()
+                        namevar=namebox.GetValue()
+                
+                agechoice=wx.TextEntryDialog(None, 'Dogs Age:', 'Dogs Details','Dogs age.')
+                if agechoice.ShowModal()==wx.ID_OK:
+                
+                	agevar=agechoice.GetValue()
+                	
+                breedname=wx.SingleChoiceDialog(None,'What kind of dog is it?','Breed', ['Collie', 'Wire hair Terrier', 'smooth hair Terrier', 'Husky', 'Bichon', 'Long Hair Spaniel', 'Short haired spaniel', 'Malamute', 'Akita', 'Bulldog', 'Mastiff', 'PitBull', 'st. bernard', 'shih tzuz'])
+                if breedname.ShowModal()==wx.ID_OK:
+                
+                	breedvar=breedname.GetStringSelection()
+                
+                ownerentry=wx.TextEntryDialog(None, 'Owners Name: ','Owners Details', 'Dogs Owners name.' )
+                if ownerentry.ShowModal()==wx.ID_OK:
+                	
+                	ownervar=ownerentry.GetValue()
+                	
+                mobileentry=wx.TextEntryDialog(None, 'Owners Mobile', 'Owners Mobile', 'Owners mobile')
+                if mobileentry.ShowModal()==wx.ID_OK:
+                        mobvar=mobileentry.GetValue()
+               
+                altnoentry=wx.TextEntryDialog(None, 'Secondary Number','Backup Number','Alt Number' )
+                if altnoentry.ShowModal()==wx.ID_OK:
+               		altvar=altnoentry.GetValue()
+               		
+               		con = lite.connect('dog.DB')
+
+			with con:
+				cur = con.cursor() 
+                        	cur.execute("INSERT INTO dog (dogname, dogage, dogbreed, dogcreated, dogowner, dogmobile, dogaltcontact, dogsex) VALUES (?, ?, ?, datetime('now'), ?, ?, ?, ?)", (namevar, agevar, breedvar, ownervar, mobvar, altvar, sexvar))
+
 
 if __name__=='__main__':
         app=wx.PySimpleApp()
