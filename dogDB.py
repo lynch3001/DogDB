@@ -33,7 +33,10 @@ class dogs(wx.Frame):
                     rows = cur.fetchall()
 
                     for row in rows:
-                        print "%s %s %s" % (row["dogId"], row["dogname"], row["dogowner"])
+                        dogsNumber = row["dogId"]
+                        dogsName = row["dogname"]
+                        dogsOwner = row["dogowner"]
+                        print "%s %s %s" % (dogsNumber, dogsName, dogsOwner)
 
                 
                 self.SetMenuBar(menubar)
@@ -48,6 +51,7 @@ class dogs(wx.Frame):
                 wx.CheckBox(panel, -1, "Kill it with fire doggy", (80,120),(160,-1))
 
                 mylist=['doggy 1', 'dodgey dog', 'shits eveerywhere dog', 'petable goggeh']
+                print "%s %s %s" % (dogsNumber, dogsName, dogsOwner)
                 cunt=wx.ListBox(panel, -1,(200,200),(-1,-1),mylist, wx.LB_SINGLE)
                 cunt.SetSelection(2)
                 
