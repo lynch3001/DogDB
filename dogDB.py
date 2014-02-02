@@ -20,28 +20,28 @@ class dogs(wx.Frame):
                 edititem = secondmenu.Append(wx.NewId(),"Edit Entry...","makes Nessasary Dog Entry")
                 menubar.Append(firstmenu,"File")
                 menubar.Append(secondmenu,"Edit")
-		
-		con = lite.connect('dog.DB')
+                
+                con = lite.connect('dog.DB')
 
-		with con:
+                with con:
     
-		    con.row_factory = lite.Row
+                    con.row_factory = lite.Row
        
-		    cur = con.cursor() 
-		    cur.execute("SELECT * FROM dog")
+                    cur = con.cursor() 
+                    cur.execute("SELECT * FROM dog")
 
-		    rows = cur.fetchall()
+                    rows = cur.fetchall()
 
-		    for row in rows:
-        		print "%s %s %s" % (row["dogId"], row["dogname"], row["dogowner"])
+                    for row in rows:
+                        print "%s %s %s" % (row["dogId"], row["dogname"], row["dogowner"])
 
-        	
+                
                 self.SetMenuBar(menubar)
                 self.Bind(wx.EVT_MENU, self.closebutton, exititem)
                 self.Bind(wx.EVT_MENU, self.newobject, newitem)
 
-		sexanswer = "default"
-		nameanswer = "Default"
+                sexanswer = "default"
+                nameanswer = "Default"
 
                 wx.CheckBox(panel, -1, "pretty doggy", (80,80),(160,-1))
                 wx.CheckBox(panel, -1, "ugly doggy", (80,100),(160,-1))
@@ -72,8 +72,8 @@ class dogs(wx.Frame):
         def closewindow(self, event):
                 self.Destroy()
 
-	def newobject(self, event):
-		sexchoice=wx.SingleChoiceDialog(None, 'Male or Bitch?', 'Sex?',['Male','bitch', 'Neutered'])
+        def newobject(self, event):
+                sexchoice=wx.SingleChoiceDialog(None, 'Male or Bitch?', 'Sex?',['Male','bitch', 'Neutered'])
                 if sexchoice.ShowModal()==wx.ID_OK:
                         sexvar=sexchoice.GetStringSelection()
                         
@@ -85,35 +85,35 @@ class dogs(wx.Frame):
                 agechoice=wx.TextEntryDialog(None, 'Dogs Age:', 'Dogs Details','Dogs age.')
                 if agechoice.ShowModal()==wx.ID_OK:
                 
-                	agevar=agechoice.GetValue()
-                	
+                        agevar=agechoice.GetValue()
+                        
                 breedname=wx.SingleChoiceDialog(None,'What kind of dog is it?','Breed', ['Collie', 'Wire hair Terrier', 'smooth hair Terrier', 'Husky', 'Bichon', 'Long Hair Spaniel', 'Short haired spaniel', 'Malamute', 'Akita', 'Bulldog', 'Mastiff', 'PitBull', 'st. bernard', 'shih tzuz'])
                 if breedname.ShowModal()==wx.ID_OK:
                 
-                	breedvar=breedname.GetStringSelection()
+                        breedvar=breedname.GetStringSelection()
                 
                 ownerentry=wx.TextEntryDialog(None, 'Owners Name: ','Owners Details', 'Dogs Owners name.' )
                 if ownerentry.ShowModal()==wx.ID_OK:
-                	
-                	ownervar=ownerentry.GetValue()
-                	
+                        
+                        ownervar=ownerentry.GetValue()
+                        
                 mobileentry=wx.TextEntryDialog(None, 'Owners Mobile', 'Owners Mobile', 'Owners mobile')
                 if mobileentry.ShowModal()==wx.ID_OK:
                         mobvar=mobileentry.GetValue()
                
                 altnoentry=wx.TextEntryDialog(None, 'Secondary Number','Backup Number','Alt Number' )
                 if altnoentry.ShowModal()==wx.ID_OK:
-               		altvar=altnoentry.GetValue()
-               		
-               		con = lite.connect('dog.DB')
+                        altvar=altnoentry.GetValue()
+                        
+                        con = lite.connect('dog.DB')
 
-			with con:
-				cur = con.cursor() 
-                        	cur.execute("INSERT INTO dog (dogname, dogage, dogbreed, dogcreated, dogowner, dogmobile, dogaltcontact, dogsex) VALUES (?, ?, ?, datetime('now'), ?, ?, ?, ?)", (namevar, agevar, breedvar, ownervar, mobvar, altvar, sexvar))
+                        with con:
+                                cur = con.cursor() 
+                                cur.execute("INSERT INTO dog (dogname, dogage, dogbreed, dogcreated, dogowner, dogmobile, dogaltcontact, dogsex) VALUES (?, ?, ?, datetime('now'), ?, ?, ?, ?)", (namevar, agevar, breedvar, ownervar, mobvar, altvar, sexvar))
 
 
 if __name__=='__main__':
-        app=wx.PySimpleApp()
+        app=wx.App(False)
         frame=dogs(parent=None,id=-1)
         frame.Show()
         app.MainLoop()
